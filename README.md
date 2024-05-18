@@ -1,34 +1,75 @@
-arudino-rust-speedometer
-========================
+# Bike speedometer with Arduino and Rust
 
-Rust project for the _Arduino Uno_.
+To get started, we'll first setup Rust project, build the arduino circuit and then program the logic in Rust.
 
-## Build Instructions
-1. Install prerequisites as described in the [`avr-hal` README] (`avr-gcc`, `avr-libc`, `avrdude`, [`ravedude`]).
+## Rust project setup
 
-2. Run `cargo build` to build the firmware.
+You should have `cargo` installed. Cargo is a package manager for Rust packages.
 
-3. Run `cargo run` to flash the firmware to a connected board.  If `ravedude`
-   fails to detect your board, check its documentation at
-   <https://crates.io/crates/ravedude>.
+Install the following dependencies:
 
-4. `ravedude` will open a console session after flashing where you can interact
-   with the UART console of your board.
+### Windows
 
-[`avr-hal` README]: https://github.com/Rahix/avr-hal#readme
-[`ravedude`]: https://crates.io/crates/ravedude
+You can use `winget` on Window 10 & Windows 11:
 
-## License
-Licensed under either of
+```
+winget install AVRDudes.AVRDUDE ZakKemble.avr-gcc
+```
 
- - Apache License, Version 2.0
-   ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)
- - MIT license
-   ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
+OR with `scoop`
 
-at your option.
+```
+scoop install avr-gcc
+scoop install avrdude
+```
 
-## Contribution
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall
-be dual licensed as above, without any additional terms or conditions.
+For Ubuntu or Macos, you can refer to the official doc here:
+https://github.com/Rahix/avr-hal?tab=readme-ov-file#quickstart
+
+Afterwards, install the following cargo packages:
+
+```
+cargo install cargo-generate
+cargo install ravedude
+```
+
+To bootstrap an Embedded Rust project, we'll use a base template provided by `avr-hal` (Github: https://github.com/Rahix/avr-hal), which is embedded-hal abstractions for AVR microcontrollers:
+
+```
+cargo generate --git https://github.com/Rahix/avr-hal-template.git
+```
+
+Once the project is generated, navigate to `/.cargo/config.toml`, inside it you'll see `target = "avr-specs/avr-atmega328p.json"`, the default target MCU is `atmega328p`, hence the code will contain abstractions relevant to this MCU. All the other available supported MCUs can be found in `/avr-specs` folder.
+
+Now we need to do some modifications in `/Cargo.toml` file:
+
+- Add the following code after `[dependencies.arduino-hal]` section:
+
+```
+[dependencies.avr-device]
+version = "0.5.4"
+features = ['atmega32u4']
+```
+
+- Add the following code after `profile.dev` section:
+
+```
+[profile.dev.package.compiler_builtins]
+overflow-checks = false
+```
+
+Now, we'll run the project once to see if everything works fine. For that, make sure you've connected the USB cable on your system to Arduino. Afterwards, find the Port Number of the connected USB, for example, in my case it's `COM6`. We'll set this port number as value for `RAVEDUDE_PORT` environment variable in the terminal. On Windows PowerShell, we'll do it with the following command:
+
+```
+$env:RAVEDUDE_PORT='COM6'
+```
+
+Finally, run the following command in the project root directory to flash the Rust program onto Arduino. The program flashed is the initial boilerplate code in `/src/main.rs`:
+
+```
+cargo run
+```
+
+If you get no errors, then the program will be working correctly and can be tested.
+
+## Building the Arduino Circuit
