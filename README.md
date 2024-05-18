@@ -73,3 +73,14 @@ cargo run
 If you get no errors, then the program will be working correctly and can be tested.
 
 ## Building the Arduino Circuit
+
+Things we'll need:
+- Arduino Uno (with its USB cable)
+- Reed Switch (Normally Open)
+- Breadboard
+- Jumper wires
+- 4 Digit 7-Segment LEDs
+
+![WhatsApp Image 2024-05-19 at 03 03 22_c51b60fa](https://github.com/ZaeemKhaliq/Bike-Speedometer-with-Arduino-Rust/assets/57555591/8fde1f0f-3bef-411a-8ea8-3b2eb011d2ab)
+
+
