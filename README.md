@@ -1,6 +1,6 @@
 # Bike speedometer with Arduino and Rust
 
-To get started, we'll first setup Rust project and then build the arduino circuit. The Rust program containing the logic for speed calculation is located in **/src/main.rs** file in this repo.
+To get started, we'll first setup Rust project and then build the arduino circuit. The Rust program containing the logic for speed calculation and displaying the result on LED is located in **/src/main.rs** file in this repo.
 
 ## Rust project setup
 
@@ -75,6 +75,7 @@ If you get no errors, then the program will be working correctly and can be test
 ## Building the Arduino Circuit
 
 To build the prototype circuit, we'll need:
+
 - Arduino Uno (with its USB cable)
 - Reed Switch (Normally Open)
 - Breadboard
@@ -85,14 +86,12 @@ To build the prototype circuit, we'll need:
 ![WhatsA![Uploading 4-digit 7-segment Speedometer with Arduino.drawio.svg…]()
 pp Image 2024-05-19 at 03 03 22_c51b60fa](https://github.com/ZaeemKhaliq/Bike-Speedometer-with-Arduino-Rust/assets/57555591/8fde1f0f-3bef-411a-8ea8-3b2eb011d2ab)
 
-
 ### Schematic
+
 ![4-digit 7-segment Speedometer with Arduino-1](https://github.com/ZaeemKhaliq/Bike-Speedometer-with-Arduino-Rust/assets/57555591/1d39688c-5242-4998-bdb3-bcddce09378e)
 
+12 Digital Pins of Arduino are connected to 12 pins of 7-segment LEDs. The first four are control pins for each digit, making it ON or OFF. Since it's a common cathode 7-segment, the digits are ON when the input to the pins is LOW and OFF when input is HIGH. For example, if the first four digital pins have output 1000 (first pin is HIGH and others are LOW), the last three of the digits on 7-segment will be lit up.
 
-12 Digital Pins of Arduino are connected to 12 pins of 7-segment LEDs. The first four are control pins for each segment, making it ON or OFF. Since it's a common cathode 7-segment, the digits are ON when the input to the pins is LOW and OFF when input is HIGH. For example, if the first four digital pins have output 1000 (first pin is HIGH and others are LOW), the last three of the digits on 7-segment will be lit up.
-
-The rest of the 8 pins (D4-D11) are used to control each segment's display to display the speed value. The 8th pin (DP on 7-segment) is for the decimal point. 
+The rest of the 8 pins (D4-D11) are used to control each segment's display to display the speed value. The 8th pin (DP on 7-segment) is for the decimal point.
 
 Also attached is an external pull-up resistor, which keeps the **Analog Input** pin (A0) to HIGH state when reed switch is open. We are using LOW state on the A0 pin for detection of when the magnet passes by the reed switch. When the magnet passes by the switch, it closes it, causing the current to direct towards the **GND** (away from analog input pin) on the Arduino, hence the A0 pin becomes LOW and we use that to perform calculations for speed.
-
