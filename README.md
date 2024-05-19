@@ -94,7 +94,8 @@ pp Image 2024-05-19 at 03 03 22_c51b60fa](https://github.com/ZaeemKhaliq/Bike-Sp
 
 ### Schematic
 
-![4-digit 7-segment Speedometer with Arduino-1](https://github.com/ZaeemKhaliq/Bike-Speedometer-with-Arduino-Rust/assets/57555591/1d39688c-5242-4998-bdb3-bcddce09378e)
+![4-digit 7-segment Speedometer with Arduino-1](https://github.com/ZaeemKhaliq/Bike-Speedometer-with-Arduino-Rust/assets/57555591/2fe5b8f9-cd80-444f-b183-83efb563c82f)
+
 
 12 Digital Pins of Arduino are connected to 12 pins of 7-segment LEDs. The first four are control pins for each digit, making it ON or OFF. Since it's a common cathode 7-segment, the digits are ON when the input to the pins is LOW and OFF when input is HIGH. For example, if the first four digital pins have output 1000 (first pin is HIGH and others are LOW), the last three of the digits on 7-segment will be lit up.
 
