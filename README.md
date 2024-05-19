@@ -1,5 +1,11 @@
 # Bike speedometer with Arduino and Rust
 
+The digit numbers are quite flickering in the following video because the max FPS of the camera is 60fps. In real life, the digits display fine and there is only a little bit of flickering.
+
+https://github.com/ZaeemKhaliq/Bike-Speedometer-with-Arduino-Rust/assets/57555591/15ac6d68-2fc3-45c3-9ff6-23b479487148
+
+
+
 To get started, we'll first setup Rust project and then build the arduino circuit. The Rust program containing the logic for speed calculation and displaying the result on LED is located in **/src/main.rs** file in this repo.
 
 ## Rust project setup
